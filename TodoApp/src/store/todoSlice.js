@@ -62,8 +62,6 @@ const todoslice = createSlice({
       // return (state = state.filter((item) => item.completed === true));
     },
     clearedCompletedTodos: (state, action) => {
-      let newState = [...action.payload];
-      localStorage.setItem("todos", JSON.stringify(newState));
       return (state = [...action.payload]);
     },
   },
