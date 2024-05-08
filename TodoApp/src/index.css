@@ -235,6 +235,9 @@ input[type="checkbox"]:checked + label {
   background-color: white;
   color: black;
 }
+.input-light-mode{
+  color: white;
+}
 .dark{
   /* color: hsl(240deg 13.3% 54.31%); */
   /* color:#f2f7f4; */
