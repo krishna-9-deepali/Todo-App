@@ -1,0 +1,242 @@
+html{
+  /* background-color: #452d7f; */
+  background-color: #e5bbbd;
+  margin: 0;
+  padding: 0;
+   width: 100vw;
+   height: 100vh; 
+  /* height: 100%;  */
+  /* width: 100%; */
+  /* height: 100%; */
+  background-image: url("background-todo.avif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-repeat: repeat-y;
+  
+
+  }
+  
+.modetoggle{
+  /* background-color: white; */
+  color: hsl(231.82deg 22.92% 18.82%);
+  border-radius: 1rem;
+}
+
+
+.outerDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 40%;
+  max-width:100% ;
+  width: 50%;
+  /* height: auto; */
+  margin-top: 2rem;
+  /* background-color: #452d7f; */
+  /* background-color: #2A3D45; */
+  background-color: transparent;
+  padding: 2rem;
+  border-radius: 1rem;
+
+  
+}
+.todoName{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: center;
+  color: white;
+  letter-spacing:0.7rem ;
+  font-size: 2rem;
+}
+.inputField{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  width: 100%;
+  height: 7vh;
+  font-size: 2rem;
+  background-color: hsl(231.82deg 22.92% 18.82%);
+  padding: 0.2rem;
+  gap: 0.2rem;
+  border-radius: 1rem;
+}
+.inputTag{
+  background-color: hsl(231.82deg 22.92% 18.82%);
+  border: none;
+  height: 50%;
+  width: 100%;
+  /* color:hsl(240deg 13.3% 54.31%); */
+  color: #003566;
+  /* color: white; */
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-weight: bold;
+}
+.inputTag:focus{
+  
+  outline:none;
+}
+.Onhover:hover{
+  color: white;
+}
+.Onhover-light:hover{
+  color:black ;
+}
+
+
+/* Hide the default checkbox */
+.round-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #003566;
+  cursor: pointer;
+  color: transparent;
+}
+.checked-not{
+  color: transparent;
+}
+.check-display{
+  color:#003566
+}
+.check-display-black{
+  color: black;
+}
+.todoItems{
+  margin-top: 0.5rem;
+  width: 100%;
+  display: flex;
+  /* justify-content:space-between; */
+  height: auto;
+  min-height: 9vh;
+  padding: 0.2rem;
+  /* background-color: hsl(231.82deg 22.92% 18.82%); */
+  color:hsl(240deg 13.3% 54.31%);
+  border: 0.1px solid hsl(240deg 13.3% 54.31%);
+  border-radius: 1rem;
+
+}
+
+.todoInnerItem{
+  display: flex;
+  align-items: center;
+  gap:0.5rem;
+  margin-left: 1rem;
+}
+.inputWidth{
+  width:100%;
+  margin-right: 0.5rem;
+}
+.outline{
+  outline: 1px solid white;
+}
+.outline:focus{
+  outline: 1px solid white;
+}
+.outlinelight{
+  outline: 1px solid black;
+}
+.outlinelight:focus{
+  outline: 1px solid black;
+}
+#myTextarea {
+  /* padding: 1rem 0; */
+  width: 100%; 
+  /* Width of the textarea */
+  height: 2rem; /* Height of the textarea */
+  resize: none; /* Disable resizing */
+  background-color: transparent;
+}
+.text-line-through{
+  text-decoration: line-through;
+}
+.disabled {
+  visibility: hidden;
+  /* display: none; */
+  
+}
+.editbutton{
+  background-color: transparent;
+  border: none;
+  color:#003566;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.edit-save-button{
+  color: #d8e2dc;
+  /* color: #2e746b; */
+}
+.delete-button{
+  color: #003566;
+}
+input[type="checkbox"]{
+  cursor: pointer;
+}
+input[type="checkbox"]:checked + label {
+  /* background-color: hsl(240deg 13.3% 54.31%); */
+  /* color:blue; */
+  text-decoration: line-through;
+}
+.todoInfo{
+  margin-top: 0.5rem;
+  width: 100%;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  height: 7vh;
+  /* font-size: 2rem; */
+  background-color: hsl(231.82deg 22.92% 18.82%);
+  padding: 0.2rem;
+  color:white;
+  border-radius: 1rem;
+}
+.todoMiddleInfo{
+  display: flex;
+  gap: 0.2rem;
+}
+.category{
+  color: blue;
+}
+
+.container{
+   width: 100%;
+   height: auto;
+   /* margin: auto; */
+   /* background-color: rgb(14, 14, 14); */
+   background-color: hsl(231.82deg 22.92% 18.82%);
+   /* color: white; */
+   color: hsl(240deg 13.3% 54.31%);
+   padding: 1rem;
+   display: flex;
+   flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+   
+
+}
+/* Styles for screens smaller than 600 pixels wide */
+@media screen and (max-width: 1000px) {
+  .outerDiv{
+    width: 90vmax;
+    
+    
+  }
+}
+.lightMode{
+  background-color: white;
+  color: black;
+}
+.dark{
+  /* color: hsl(240deg 13.3% 54.31%); */
+  /* color:#f2f7f4; */
+  color: #d8e2dc;
+}
