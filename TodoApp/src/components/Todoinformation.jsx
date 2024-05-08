@@ -55,6 +55,7 @@ export default function Todoinformation() {
       (item) => item.completed === false
     );
     dispatch(todoActions.clearedCompletedTodos(clearcompletedTodos));
+    localStorage.setItem("todos", JSON.stringify(clearcompletedTodos));
     setAll((prev) => (prev = false));
     setCompleted((prev) => (prev = false));
     setactive((prev) => (prev = false));
