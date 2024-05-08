@@ -77,6 +77,9 @@ html{
   border-radius: 1rem;
   font-weight: bold;
 }
+.input-dark-mode{
+  color: white;
+}
 .inputTag:focus{
   
   outline:none;
@@ -223,6 +226,17 @@ input[type="checkbox"]:checked + label {
    
 
 }
+
+.lightMode{
+  background-color: white;
+  color: black;
+}
+
+.dark{
+  /* color: hsl(240deg 13.3% 54.31%); */
+  /* color:#f2f7f4; */
+  color: #d8e2dc;
+}
 /* Styles for screens smaller than 600 pixels wide */
 @media screen and (max-width: 1000px) {
   .outerDiv{
@@ -230,16 +244,4 @@ input[type="checkbox"]:checked + label {
     
     
   }
-}
-.lightMode{
-  background-color: white;
-  color: black;
-}
-.input-light-mode{
-  color: white;
-}
-.dark{
-  /* color: hsl(240deg 13.3% 54.31%); */
-  /* color:#f2f7f4; */
-  color: #d8e2dc;
 }
