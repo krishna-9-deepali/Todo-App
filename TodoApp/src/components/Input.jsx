@@ -30,7 +30,7 @@ export default function Input() {
         onClick={handleAddTodo}
       />
       <input
-        className={`inputTag ${mode ? "input-light-mode" : "lightMode"}`}
+        className={`inputTag ${mode ? "input-dark-mode" : "lightMode"}`}
         placeholder="Create a new todo"
         ref={inputTodoRef}
         onChange={handleTodoInput}
