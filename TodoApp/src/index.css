@@ -8,7 +8,7 @@ html{
   /* height: 100%;  */
   /* width: 100%; */
   /* height: 100%; */
-  background-image: url("./background-todo.avif");
+  background-image: url("/background-todo.avif");
   background-repeat: no-repeat;
   background-size: cover;
   background-repeat: repeat-y;
