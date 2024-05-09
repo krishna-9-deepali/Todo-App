@@ -102,7 +102,8 @@ export default function Todoinformation() {
         ? JSON.parse(localStorage.getItem("todos"))
         : [];
     let activeTodos = alltodo.filter((item) => item.completed === false);
-    return `${activeTodos.length} Items Left`;
+    return activeTodos.length;
+    // return `${activeTodos.length} Items Left`;
   };
   const displayItemsCompleted = () => {
     let alltodo =
@@ -114,46 +115,59 @@ export default function Todoinformation() {
   };
   return (
     <>
-      <div className={`todoInfo ${mode ? "" : "lightMode"}`}>
-        <div>
-          {all === true ||
-          active === true ||
-          (clearCompleted === true && todoItems.length > 0)
-            ? displayItemsLeft()
-            : `${displayItemsCompleted()} Items Completed`}
-        </div>
-        <div className="todoMiddleInfo">
-          <div
-            className={`${all ? "category" : ""}`}
-            onClick={handleAllTodos}
-            style={{ cursor: "pointer" }}
-          >
-            All
+      <div
+        className={`todoInfo ${mode ? "" : "lightMode"}`}
+        style={{ display: "flex", flexDirection: "column" }}
+      >
+        <div className={`todoInfo ${mode ? "" : "lightMode"}`}>
+          <div>
+            {all === true ||
+            active === true ||
+            (clearCompleted === true && todoItems.length > 0)
+              ? `${displayItemsLeft()} Items left`
+              : `${displayItemsCompleted()} Items Completed`}
+          </div>
+          <div className="todoMiddleInfo">
+            <div
+              className={`${all ? "category" : ""}`}
+              onClick={handleAllTodos}
+              style={{ cursor: "pointer" }}
+            >
+              All
+            </div>
+            <div
+              className={`${active ? "category" : ""}`}
+              onClick={handleActiveTodos}
+              style={{ cursor: "pointer" }}
+            >
+              Active
+            </div>
+            <div
+              className={`${completed ? "category" : ""}`}
+              onClick={handleCompletedTodos}
+              style={{ cursor: "pointer" }}
+            >
+              completed
+            </div>
           </div>
           <div
-            className={`${active ? "category" : ""}`}
-            onClick={handleActiveTodos}
+            className={`${clearCompleted ? "category" : ""}`}
+            onClick={handleClearCompletedTodos}
             style={{ cursor: "pointer" }}
           >
-            Active
-          </div>
-          <div
-            className={`${completed ? "category" : ""}`}
-            onClick={handleCompletedTodos}
-            style={{ cursor: "pointer" }}
-          >
-            completed
+            clear completed
           </div>
         </div>
-        <div
-          className={`${clearCompleted ? "category" : ""}`}
-          onClick={handleClearCompletedTodos}
-          style={{ cursor: "pointer" }}
-        >
-          clear completed
-        </div>
-        <div>{`${displayItemsLeft()}, ${displayItemsCompleted()} Items Completed`}</div>
       </div>
+      <div
+        className={`todoInfo ${mode ? "" : "lightMode"}`}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "transparent",
+        }}
+      >{`${displayItemsLeft()}-left , ${displayItemsCompleted()}-Completed`}</div>
     </>
   );
 }
