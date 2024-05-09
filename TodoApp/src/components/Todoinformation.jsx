@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { todoActions } from "../store/todoSlice";
+import { todoInfoActions } from "../store/todoInfoSlice";
 export default function Todoinformation() {
   const mode = useSelector((store) => store.toggleMode);
   const todoItems = useSelector((store) => store.todo);
+  const { all, active, completed, clearCompleted } = useSelector(
+    (store) => store.todoinfo
+  );
   const dispatch = useDispatch();
-  const [all, setAll] = useState(false);
-  const [Completed, setCompleted] = useState(false);
-  const [active, setactive] = useState(false);
-  const [ClearCompleted, setClearCompleted] = useState(false);
+
+  useEffect(() => {
+    //if todo list is exist on refresh.
+    if (todoItems.length > 0) {
+      dispatch(
+        todoInfoActions.changeMode({
+          all: true,
+          active: false,
+          completed: false,
+          clearCompleted: false,
+        })
+      );
+    }
+  }, []);
 
   const handleAllTodos = () => {
     let alltodo =
@@ -16,10 +30,14 @@ export default function Todoinformation() {
         ? JSON.parse(localStorage.getItem("todos"))
         : [];
     dispatch(todoActions.allTodos(alltodo));
-    setAll((prev) => (prev = true));
-    setCompleted((prev) => (prev = false));
-    setactive((prev) => (prev = false));
-    setClearCompleted((prev) => (prev = false));
+    dispatch(
+      todoInfoActions.changeMode({
+        all: true,
+        active: false,
+        completed: false,
+        clearCompleted: false,
+      })
+    );
   };
   const handleActiveTodos = () => {
     let alltodo =
@@ -28,10 +46,15 @@ export default function Todoinformation() {
         : [];
     let activeTodos = alltodo.filter((item) => item.completed === false);
     dispatch(todoActions.activeTodos(activeTodos));
-    setAll((prev) => (prev = false));
-    setCompleted((prev) => (prev = false));
-    setactive((prev) => (prev = true));
-    setClearCompleted((prev) => (prev = false));
+
+    dispatch(
+      todoInfoActions.changeMode({
+        all: false,
+        active: true,
+        completed: false,
+        clearCompleted: false,
+      })
+    );
   };
 
   const handleCompletedTodos = () => {
@@ -41,10 +64,15 @@ export default function Todoinformation() {
         : [];
     let completedTodos = alltodo.filter((item) => item.completed === true);
     dispatch(todoActions.completedTodos(completedTodos));
-    setAll((prev) => (prev = false));
-    setCompleted((prev) => (prev = true));
-    setactive((prev) => (prev = false));
-    setClearCompleted((prev) => (prev = false));
+
+    dispatch(
+      todoInfoActions.changeMode({
+        all: false,
+        active: false,
+        completed: true,
+        clearCompleted: false,
+      })
+    );
   };
   const handleClearCompletedTodos = () => {
     let alltodo =
@@ -55,15 +83,44 @@ export default function Todoinformation() {
       (item) => item.completed === false
     );
     dispatch(todoActions.clearedCompletedTodos(clearcompletedTodos));
+    if (alltodo.filter((item) => item.completed === true).length > 0) {
+      dispatch(
+        todoInfoActions.changeMode({
+          all: false,
+          active: false,
+          completed: false,
+          clearCompleted: true,
+        })
+      );
+    }
+
     localStorage.setItem("todos", JSON.stringify(clearcompletedTodos));
-    setAll((prev) => (prev = false));
-    setCompleted((prev) => (prev = false));
-    setactive((prev) => (prev = false));
-    setClearCompleted((prev) => (prev = true));
+  };
+  const displayItemsLeft = () => {
+    let alltodo =
+      localStorage.getItem("todos") !== null
+        ? JSON.parse(localStorage.getItem("todos"))
+        : [];
+    let activeTodos = alltodo.filter((item) => item.completed === false);
+    return `${activeTodos.length} Items Left`;
+  };
+  const displayItemsCompleted = () => {
+    let alltodo =
+      localStorage.getItem("todos") !== null
+        ? JSON.parse(localStorage.getItem("todos"))
+        : [];
+    let activeTodos = alltodo.filter((item) => item.completed === true);
+    return activeTodos.length;
   };
   return (
     <div className={`todoInfo ${mode ? "" : "lightMode"}`}>
-      <div>{todoItems.length} items left</div>
+      <div>
+        {all === true ||
+        active === true ||
+        (clearCompleted === true && todoItems.length > 0)
+          ? displayItemsLeft()
+          : `${displayItemsCompleted()} Items Completed`}
+      </div>
       <div className="todoMiddleInfo">
         <div
           className={`${all ? "category" : ""}`}
@@ -80,7 +137,7 @@ export default function Todoinformation() {
           Active
         </div>
         <div
-          className={`${Completed ? "category" : ""}`}
+          className={`${completed ? "category" : ""}`}
           onClick={handleCompletedTodos}
           style={{ cursor: "pointer" }}
         >
@@ -88,7 +145,7 @@ export default function Todoinformation() {
         </div>
       </div>
       <div
-        className={`${ClearCompleted ? "category" : ""}`}
+        className={`${clearCompleted ? "category" : ""}`}
         onClick={handleClearCompletedTodos}
         style={{ cursor: "pointer" }}
       >

@@ -10,6 +10,9 @@ export default function Todoitems({ item }) {
   const [iseditable, setIseditable] = useState(false);
   const [updateTodo, setUpdateTodo] = useState(item.todo);
   const mode = useSelector((store) => store.toggleMode);
+  const { all, active, completed, clearCompleted } = useSelector(
+    (store) => store.todoinfo
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     // Update updateTodo when item.todo changes
@@ -17,25 +20,61 @@ export default function Todoitems({ item }) {
   }, [item.todo]); // Watch for changes to item.todo
 
   const handledeletion = (id) => {
+    let alltodo =
+      localStorage.getItem("todos") !== null
+        ? JSON.parse(localStorage.getItem("todos"))
+        : [];
+    let todosAfterDeletion = alltodo.filter((item) => item.id !== id);
     dispatch(todoActions.deletetodo(id));
+    localStorage.setItem("todos", JSON.stringify(todosAfterDeletion));
   };
   const handleUpdate = (id) => {
+    let alltodo =
+      localStorage.getItem("todos") !== null
+        ? JSON.parse(localStorage.getItem("todos"))
+        : [];
+    let newState = alltodo.map((item) =>
+      item.id === id ? { ...item, todo: updateTodo } : item
+    );
+    localStorage.setItem("todos", JSON.stringify(newState));
     dispatch(todoActions.updatetodo({ ...item, todo: updateTodo }));
     setIseditable(false);
-    console.log("update call asve call", iseditable);
   };
-  const toggleCompleted = () => {
-    dispatch(todoActions.toggleComplete(item.id));
+  const toggleCompleted = (id) => {
+    let alltodo =
+      localStorage.getItem("todos") !== null
+        ? JSON.parse(localStorage.getItem("todos"))
+        : [];
+    let newState = alltodo.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
+    localStorage.setItem("todos", JSON.stringify(newState));
+    dispatch(todoActions.toggleComplete(id));
+    //get data from local storage.
+    let alltodos =
+      localStorage.getItem("todos") !== null
+        ? JSON.parse(localStorage.getItem("todos"))
+        : [];
+    //update  active and  completed todos.
+    if (active) {
+      let activetodo = alltodos.filter((todo) => todo.completed === false);
+
+      dispatch(todoActions.activeTodos(activetodo));
+    }
+    if (completed) {
+      let completedTodo = alltodos.filter((todo) => todo.completed === true);
+      dispatch(todoActions.completedTodos(completedTodo));
+    }
   };
   return (
     <>
       <div className={`todoItems ${mode ? "" : "lightMode "}`}>
         <div className="todoInnerItem inputWidth">
           <div
-            class={`round-checkbox ${item.completed ? "check-display" : ""}  ${
-              item.completed && !mode ? "check-display-black" : ""
-            }`}
-            onClick={toggleCompleted}
+            className={`round-checkbox ${
+              item.completed ? "check-display" : ""
+            }  ${item.completed && !mode ? "check-display-black" : ""}`}
+            onClick={() => toggleCompleted(item.id)}
           >
             <TiTick />
           </div>

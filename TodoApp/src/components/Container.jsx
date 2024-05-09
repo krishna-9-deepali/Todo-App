@@ -3,11 +3,20 @@ import Todoheading from "./Todoheading";
 import Input from "./Input";
 import Todoitems from "./Todoitems";
 import Todoinformation from "./Todoinformation";
-import { useSelector } from "react-redux";
+import { todoActions } from "../store/todoSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Container() {
   const todoItems = useSelector((store) => store.todo);
   console.log(todoItems);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    let alltodo =
+      localStorage.getItem("todos") !== null
+        ? JSON.parse(localStorage.getItem("todos"))
+        : [];
+    dispatch(todoActions.allTodos(alltodo));
+  }, []);
 
   return (
     <>
@@ -35,6 +44,10 @@ export default function Container() {
         )}
 
         <Todoinformation />
+        <div style={{ textTransform: "capitalize", marginTop: "1rem" }}>
+          Note: Selcted item displayed in completed category , deselcted item on
+          active category.
+        </div>
       </div>
     </>
   );
