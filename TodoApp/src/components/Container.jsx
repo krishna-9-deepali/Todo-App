@@ -45,8 +45,8 @@ export default function Container() {
 
         <Todoinformation />
         <div style={{ textTransform: "capitalize", marginTop: "1rem" }}>
-          Note: Selcted item displayed in completed category , deselcted item on
-          active category.
+          Note: Selected items are displayed in the Completed category, while
+          deselected items are shown in the Active category.
         </div>
       </div>
     </>
