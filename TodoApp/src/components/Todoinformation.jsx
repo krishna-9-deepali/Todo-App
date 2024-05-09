@@ -159,15 +159,19 @@ export default function Todoinformation() {
           </div>
         </div>
       </div>
-      <div
-        className={`todoInfo ${mode ? "" : "lightMode"}`}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "transparent",
-        }}
-      >{`${displayItemsLeft()}-left , ${displayItemsCompleted()}-Completed`}</div>
+      {(displayItemsLeft() !== 0 || displayItemsCompleted() !== 0) && (
+        <div
+          className={`todoInfo ${mode ? "" : "lightMode"}`}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "transparent",
+          }}
+        >{`${
+          displayItemsLeft() + displayItemsCompleted()
+        } All , ${displayItemsLeft()} Active , ${displayItemsCompleted()} Completed`}</div>
+      )}
     </>
   );
 }
