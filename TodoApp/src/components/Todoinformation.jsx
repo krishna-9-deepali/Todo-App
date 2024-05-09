@@ -113,44 +113,47 @@ export default function Todoinformation() {
     return activeTodos.length;
   };
   return (
-    <div className={`todoInfo ${mode ? "" : "lightMode"}`}>
-      <div>
-        {all === true ||
-        active === true ||
-        (clearCompleted === true && todoItems.length > 0)
-          ? displayItemsLeft()
-          : `${displayItemsCompleted()} Items Completed`}
-      </div>
-      <div className="todoMiddleInfo">
-        <div
-          className={`${all ? "category" : ""}`}
-          onClick={handleAllTodos}
-          style={{ cursor: "pointer" }}
-        >
-          All
+    <>
+      <div className={`todoInfo ${mode ? "" : "lightMode"}`}>
+        <div>
+          {all === true ||
+          active === true ||
+          (clearCompleted === true && todoItems.length > 0)
+            ? displayItemsLeft()
+            : `${displayItemsCompleted()} Items Completed`}
+        </div>
+        <div className="todoMiddleInfo">
+          <div
+            className={`${all ? "category" : ""}`}
+            onClick={handleAllTodos}
+            style={{ cursor: "pointer" }}
+          >
+            All
+          </div>
+          <div
+            className={`${active ? "category" : ""}`}
+            onClick={handleActiveTodos}
+            style={{ cursor: "pointer" }}
+          >
+            Active
+          </div>
+          <div
+            className={`${completed ? "category" : ""}`}
+            onClick={handleCompletedTodos}
+            style={{ cursor: "pointer" }}
+          >
+            completed
+          </div>
         </div>
         <div
-          className={`${active ? "category" : ""}`}
-          onClick={handleActiveTodos}
+          className={`${clearCompleted ? "category" : ""}`}
+          onClick={handleClearCompletedTodos}
           style={{ cursor: "pointer" }}
         >
-          Active
+          clear completed
         </div>
-        <div
-          className={`${completed ? "category" : ""}`}
-          onClick={handleCompletedTodos}
-          style={{ cursor: "pointer" }}
-        >
-          completed
-        </div>
+        <div>{`${displayItemsLeft()}, ${displayItemsCompleted()} Items Completed`}</div>
       </div>
-      <div
-        className={`${clearCompleted ? "category" : ""}`}
-        onClick={handleClearCompletedTodos}
-        style={{ cursor: "pointer" }}
-      >
-        clear completed
-      </div>
-    </div>
+    </>
   );
 }
